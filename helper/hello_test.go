@@ -2,6 +2,8 @@ package helper
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 
@@ -23,4 +25,16 @@ func TestSayHelloFailed(t *testing.T) {
 	}
 
 	fmt.Println("TestSayHelloFailed Done")
+}
+
+func TestSayHelloAssert(t *testing.T) {
+	result := SayHello("kojek")
+	assert.Equal(t, "Hello kojek ", result)
+	fmt.Println("TestSayHelloAssert Done")
+}
+
+func TestSayHelloRequire(t *testing.T) {
+	result := SayHello("kojek")
+	require.Equal(t, "Hello kojek ", result)
+	fmt.Println("TestSayHelloRequire Done")
 }
