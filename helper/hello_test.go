@@ -37,13 +37,13 @@ func TestSayHelloFailed(t *testing.T) {
 
 func TestSayHelloAssert(t *testing.T) {
 	result := SayHello("kojek")
-	assert.Equal(t, "Hello kojek ", result)
+	assert.Equal(t, "Hello kojek", result)
 	fmt.Println("TestSayHelloAssert Done")
 }
 
 func TestSayHelloRequire(t *testing.T) {
 	result := SayHello("kojek")
-	require.Equal(t, "Hello kojek ", result)
+	require.Equal(t, "Hello kojek", result)
 	fmt.Println("TestSayHelloRequire Done")
 }
 
