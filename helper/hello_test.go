@@ -64,3 +64,32 @@ func TestSayHelloTableTest(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkSayHello(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SayHello("edo")
+	}
+}
+
+func BenchmarkSayHelloLongParams(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SayHello("jojojojojojojojojojojojojojojojojojojojoj")
+	}
+}
+
+func BenchmarkSayHelloTableTest(b *testing.B) {
+	benchmarks := []struct {
+		name    string
+		request string
+	}{
+		{"asep", "asep"},
+		{"john", "john"},
+		{"jojojojojojojojojojojojojojojojojojojojoj", "jojojojojojojojojojojojojojojojojojojojoj"},
+	}
+
+	for _, benchmark := range benchmarks {
+		b.Run(benchmark.name, func(b *testing.B) {
+			SayHello(benchmark.request)
+		})
+	}
+}
