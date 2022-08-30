@@ -57,3 +57,37 @@ func TestInOutChannel(t *testing.T) {
 
 	time.Sleep(5 * time.Second)
 }
+
+func TestBufferedChannel(t *testing.T) {
+	channel := make(chan string, 3)
+	defer close(channel)
+
+	channel <- "test 1"
+	channel <- "test 2"
+	channel <- "test 3"
+
+	fmt.Println(<-channel)
+	fmt.Println(<-channel)
+	fmt.Println(<-channel)
+
+	time.Sleep(2 * time.Second)
+	fmt.Println("Finished...")
+}
+
+func TestRangeChannel(t *testing.T) {
+	channel := make(chan int)
+
+	go func() {
+		for i := 0; i < 10; i++ {
+			channel <- i
+		}
+		defer close(channel)
+	}()
+
+	for data := range channel {
+		fmt.Println(data)
+	}
+
+	fmt.Println("Finished...")
+
+}
