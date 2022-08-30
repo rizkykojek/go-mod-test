@@ -2,6 +2,8 @@ package concurency
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
+	"sync"
 	"testing"
 	"time"
 )
@@ -17,5 +19,23 @@ func TestRaceCondition(t *testing.T) {
 	}
 
 	time.Sleep(5 * time.Second)
+	fmt.Println("Last Counter : ", counter)
+}
+
+func TestRaceConditionWithLocking(t *testing.T) {
+	counter := 0
+	var mutex sync.Mutex
+	for i := 0; i < 1000; i++ {
+		go func() {
+			for i := 0; i < 100; i++ {
+				mutex.Lock()
+				counter++
+				mutex.Unlock()
+			}
+		}()
+	}
+
+	time.Sleep(5 * time.Second)
+	assert.Equal(t, 100000, counter)
 	fmt.Println("Last Counter : ", counter)
 }
